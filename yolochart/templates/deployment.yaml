@@ -5,7 +5,7 @@ metadata:
   labels:
     app: flask-app
 spec:
-  replicas: 2
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: flask-app
@@ -17,8 +17,8 @@ spec:
       containers:
         - name: flask-app
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 5000
-          env:
-            - name: FLASK_ENV
-              value: "production"
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
