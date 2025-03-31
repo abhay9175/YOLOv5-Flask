@@ -48,6 +48,9 @@ def return_file():
     except Exception as e:
         return str(e)
 
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
+
 # @app.route('/display/<filename>')
 # def display_video(filename):
 # 	#print('display_video filename: ' + filename)
