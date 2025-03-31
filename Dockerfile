@@ -23,4 +23,4 @@ RUN pip install --upgrade pip && \
 EXPOSE 5000
 
 # Command to run the Flask app
-CMD ["flask", "run"]
+CMD ["flask", "run", "--host=0.0.0.0"]
