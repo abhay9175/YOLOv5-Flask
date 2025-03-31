@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: abhaymarwade/yoloapp:latest
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: 5000
           env:
