@@ -30,14 +30,22 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: self-hosted
+    env:
+      MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+
+      - name: Install unzip
+        run: sudo apt-get update && sudo apt-get install -y unzip
 
       - name: Install Helm
         uses: azure/setup-helm@v3
         with:
           version: latest
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
 
       - name: Set up Helm chart values for deployment
         run: |
