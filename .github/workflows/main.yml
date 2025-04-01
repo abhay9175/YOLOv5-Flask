@@ -59,4 +59,4 @@ jobs:
 
       - name: Deploy using Helm
         run: |
-          helm upgrade --install yoloapp ./helm/yolochart
+          helm upgrade --install yoloapp /home/abhay/YOLOv5-Flask/helm/yolochart/
