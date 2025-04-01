@@ -56,3 +56,7 @@ jobs:
             repository: ${{ secrets.DOCKERHUB_USERNAME }}/yoloapp
             tag: latest
           EOF
+
+      - name: Deploy using Helm
+        run: |
+          helm upgrade --install yoloapp ./helm/yolochart
