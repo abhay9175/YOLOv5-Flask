@@ -34,11 +34,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Install Minikube
+      - name: Set up SSH
         run: |
-          curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-          sudo install minikube-linux-amd64 /usr/local/bin/minikube
-          minikube start --driver=docker
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H YOUR_LOCAL_IP >> ~/.ssh/known_hosts
 
       - name: Install kubectl
         run: |
@@ -49,3 +50,13 @@ jobs:
         uses: azure/setup-helm@v3
         with:
           version: latest
+
+      - name: Set up Helm chart values for deployment
+        run: |
+          echo "setting up Helm chart values"
+          mkdir -p helm/yolochart
+          cat <<EOF > helm/yolochart/values.yaml
+          image:
+            repository: ${{ secrets.DOCKERHUB_USERNAME }}/yoloapp
+            tag: latest
+          EOF
