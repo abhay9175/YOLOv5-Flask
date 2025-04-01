@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "yolochart.fullname" . }}:{{ .Values.service.port | grep 80 }}']
+      args: ['{{ include "yolochart.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
